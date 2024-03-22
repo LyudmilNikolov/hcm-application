@@ -1,0 +1,9 @@
+<div class="container gradient-bg">
+  @if(!authService.isLoggedIn()) {
+    <app-login-form
+      [loginStatus]="loginStatus"
+      (login)="handleLogin($event)" />
+  } @else {
+    <mat-spinner diameter="50" />
+  }
+</div>

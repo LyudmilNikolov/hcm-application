@@ -1,4 +1,73 @@
-/* You can add global styles to this file, and also import other style files */
+@use "@angular/material" as mat;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@include mat.core();
+
+$hcm-app-primary: mat.define-palette(mat.$orange-palette);
+$hcm-app-accent: mat.define-palette(
+  mat.$blue-gray-palette,
+  700,
+  800,
+  900
+);
+
+$hcm-app-warn: mat.define-palette(mat.$red-palette);
+
+$hcm-app-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $hcm-app-primary,
+      accent: $hcm-app-accent,
+      warn: $hcm-app-warn,
+    ),
+  )
+);
+
+@include mat.all-component-themes($hcm-app-theme);
+
+$primary: mat.get-color-from-palette($hcm-app-primary, default);
+$primary-lighter: mat.get-color-from-palette(
+  $hcm-app-primary,
+  lighter
+);
+$primary-darker: mat.get-color-from-palette($hcm-app-primary, darker);
+
+$accent: mat.get-color-from-palette($hcm-app-accent, A200);
+$accent-lighter: mat.get-color-from-palette($hcm-app-accent, lighter);
+$accent-darker: mat.get-color-from-palette($hcm-app-accent, darker);
+
+:root {
+  --primary-color: #{$primary};
+  --primary-lighter-color: #{$primary-lighter};
+  --primary-darker-color: #{$primary-darker};
+  --accent-color: #{$accent};
+  --accent-lighter-color: #{$accent-lighter};
+  --accent-darker-color: #{$accent-darker};
+
+  --white: #ecf0f1;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gradient-bg {
+  background: linear-gradient(
+    138deg,
+    var(--primary-darker-color) 0%,
+    var(--primary-color) 100%
+  );
+}
