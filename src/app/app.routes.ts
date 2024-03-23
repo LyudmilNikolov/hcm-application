@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { EntryComponent } from './entry/entry.component';
-import { isAuthenticatedGuard } from './shared/guards/auth.guard';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -9,8 +9,8 @@ export const routes: Routes = [
   },
   {
     path: '',
-    canActivate: [isAuthenticatedGuard],
-    canActivateChild: [isAuthenticatedGuard],
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     component: EntryComponent,
     children: [
       {
@@ -19,16 +19,7 @@ export const routes: Routes = [
       },
       {
         path: 'employees',
-        children: [
-          {
-            path: '',
-            loadComponent: () => import('./employees/employees.component').then(m => m.EmployeesComponent),
-          },
-          {
-            path: ':id',
-            loadComponent: () => import('./employees/ui/employee-details/employee-details.component').then(m => m.EmployeeDetailsComponent),
-          }
-        ]
+        loadChildren: () => import('./employees/employees.routes').then(m => m.EMPLOYEES_ROUTES),
       },
     ],
   },
@@ -36,5 +27,9 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'auth',
     pathMatch: 'full',
+  },
+  {
+    path: '**',
+    redirectTo: 'home'
   },
 ];
