@@ -71,3 +71,19 @@ body {
     var(--primary-color) 100%
   );
 }
+
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary-color);
+  background-color: var(--accent-lighter-color);
+  &:hover {
+    background-color: var(--accent-color);
+  }
+}
+
+.logout-button mat-icon {
+  color: inherit;
+}
