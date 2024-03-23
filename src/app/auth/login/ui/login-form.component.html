@@ -8,6 +8,12 @@
       placeholder="email"
     />
     <mat-icon matPrefix>mail</mat-icon>
+    @if (loginForm.get('email')?.errors?.['required']) {
+      <mat-error> Email is required.</mat-error>
+    } @if (loginForm.get('email')?.errors?.['email']) {
+      <mat-error>Please enter a valid email address.</mat-error>
+    }
+    
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>password</mat-label>
@@ -18,6 +24,9 @@
       placeholder="password"
     />
     <mat-icon matPrefix>lock</mat-icon>
+    @if (loginForm.get('password')?.errors?.['required']) {
+      <mat-error>Password is required.</mat-error>
+    }
   </mat-form-field>
   @if (loginStatus === 'error'){
     <mat-error>Could not log you in with those details.</mat-error>

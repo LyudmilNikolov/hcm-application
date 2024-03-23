@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,7 +19,7 @@ import { Credentials } from '../../../shared/interfaces/credentials';
     MatIconModule,
     MatProgressSpinnerModule,
   ],
-  styleUrl: './login-form.component.scss',
+  styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent {
   @Input() loginStatus: 'idle' | 'authenticating' | 'error' = 'idle';
@@ -28,18 +28,15 @@ export class LoginFormComponent {
   private fb = inject(FormBuilder);
 
   loginForm = this.fb.nonNullable.group({
-    email: [''],
-    password: [''],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
   });
 
-  submitForm() {
-    const email = this.loginForm.get('email')!.value;
-    const password = this.loginForm.get('password')!.value;
-
-    if (email && password) {
+  submitForm(): void {
+    if (this.loginForm.valid) {
+      const email = this.loginForm.get('email')!.value;
+      const password = this.loginForm.get('password')!.value;
       this.login.emit({ email, password });
-    } else {
-      console.error('Email or password is missing.');
     }
   }
 }

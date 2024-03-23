@@ -26,9 +26,11 @@ export class LoginComponent {
 
   handleLogin(credentials: Credentials) {
     this.loginStatus = 'authenticating';
-    this.authService.login(credentials).subscribe(user => {
-      if (user) {
+    this.authService.login(credentials).subscribe(response => {
+      if (response.success) {
         this.router.navigate(['home']);
+      } else {
+        this.loginStatus = 'error';
       }
     });
   }

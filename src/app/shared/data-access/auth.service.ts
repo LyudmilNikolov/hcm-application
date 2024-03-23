@@ -1,72 +1,52 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Credentials } from '../interfaces/credentials';
 
-interface AuthUser {
+interface Employee {
+  _id: string;
+  name: string;
   email: string;
   username: string;
-  type: 'HR Admin' | 'Normal User';
-  privileges: string[];
+  is_super_user: number;
+  department: string;
+  position: string;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private cookieService: CookieService) {}
+  private cookieService = inject(CookieService);
+  private http = inject(HttpClient);
 
-  // Check if user is logged in by checking the cookie
-  isLoggedIn() {
-    return this.cookieService.check('username');
+  isLoggedIn(): boolean {
+    return this.cookieService.check('name');
   }
 
-  login(credentials: Credentials): Observable<AuthUser | null> {
-    // Simulate an asynchronous login process
-    return of(this.mockSignIn(credentials.email, credentials.password)).pipe(
-      map(user => {
+  login(credentials: Credentials): Observable<{ success: boolean; message: string }> {
+    const employeesDataUrl = 'assets/data/employees.json';
+
+    return this.http.get<Employee[]>(employeesDataUrl).pipe(
+      map((employees) => {
+        const user = employees.find(emp => emp.email === credentials.email);
         if (user) {
-          // Set cookies if the user is successfully logged in
-          this.cookieService.set('username', user.username);
-          this.cookieService.set('userType', user.type);
-          this.cookieService.set('privileges', JSON.stringify(user.privileges));
-          return user;
+          this.cookieService.set('name', user.name);
+          this.cookieService.set('_id', user._id);
+          this.cookieService.set('is_super_user', String(user.is_super_user));
+          this.cookieService.set('department', user.department);
+          this.cookieService.set('position', user.position);
+          return { success: true, message: 'Login successful' };
         }
-        return null;
-      })
+        return { success: false, message: 'User not found' };
+      }),
+      catchError(() => of({ success: false, message: 'An error occurred' }))
     );
   }
 
-  logout() {
-    // Clear cookies on logout
+  logout(): void {
     this.cookieService.deleteAll();
-  }
-
-  private mockSignIn(email: string, password: string): AuthUser | null {
-    // Check if the email and password are not empty as a basic validation
-    if (email && password) {
-      const username = email.split('@')[0];
-      const domain = email.split('@')[1];
-
-      if (domain === 'hradmin') {
-        // HR Admin
-        return {
-          email,
-          username,
-          type: 'HR Admin',
-          privileges: ['view', 'edit', 'delete'],
-        };
-      } else {
-        // Normal User
-        return {
-          email,
-          username,
-          type: 'Normal User',
-          privileges: ['view'],
-        };
-      }
-    }
-    return null; // Return null if login failed
   }
 }
