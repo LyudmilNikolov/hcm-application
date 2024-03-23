@@ -1,1 +1,22 @@
-<p>employees works!</p>
+@if (isSuperUser) {
+  <div>
+    <button mat-raised-button (click)="addUser()" color="accent" [disabled]="this.selection.selected.length > 1">
+      <mat-icon>add_box</mat-icon>
+      Add
+    </button>
+    <button mat-raised-button (click)="editUser()" color="primary" [disabled]="this.selection.selected.length > 1">
+      <mat-icon>edit</mat-icon>
+      Edit
+    </button>
+    <button mat-raised-button (click)="viewUser()" color="accent" [disabled]="this.selection.selected.length > 1">
+      <mat-icon>zoom_in</mat-icon>
+      View
+    </button>
+    <button mat-raised-button (click)="deleteUser()" color="warn" [disabled]="this.selection.selected.length > 1">
+      <mat-icon>delete</mat-icon>
+      Delete
+    </button>
+  </div>
+}
+
+<app-employee-table [employees]="employees" [selection]="selection" [displayedColumns]="displayedColumns"></app-employee-table>

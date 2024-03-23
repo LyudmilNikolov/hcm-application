@@ -1,29 +1,35 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, map } from 'rxjs';
-
-interface Employee {
-  _id: string;
-  name: string;
-  email: string;
-  username: string;
-  is_super_user: number;
-  department: string;
-  position: string;
-}
+import { Observable } from 'rxjs';
+import { Employee, NewEmployee } from '../interfaces/employee';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
   private http = inject(HttpClient);
+  private employeesDataUrl = 'http://localhost:3000/employees';
 
   constructor() {}
 
-  getEmployeeById(id: string): Observable<Employee | undefined> {
-    const employeesDataUrl = 'assets/data/employees.json';
-    return this.http.get<Employee[]>(employeesDataUrl).pipe(
-      map(employees => employees.find(emp => emp._id === id))
-    );
+  getEmployees(): Observable<Employee[]> {
+    return this.http.get<Employee[]>(this.employeesDataUrl);
+  }
+
+  getEmployeeById(id: string): Observable<Employee> {
+    return this.http.get<Employee>(`${this.employeesDataUrl}/${id}`);
+  }
+
+
+  addNewEmployee(employee: NewEmployee): Observable<Employee> {
+    return this.http.post<Employee>(this.employeesDataUrl, employee);
+  }
+
+  updateEmployeeById(employee: Employee): Observable<Employee> {
+    return this.http.put<Employee>(`${this.employeesDataUrl}/${employee.id}`, employee);
+  }
+
+  deleteEmployeeById(id: string) {
+    return this.http.delete(`${this.employeesDataUrl}/${id}`);
   }
 }

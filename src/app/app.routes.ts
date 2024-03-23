@@ -10,6 +10,7 @@ export const routes: Routes = [
   {
     path: '',
     canActivate: [isAuthenticatedGuard],
+    canActivateChild: [isAuthenticatedGuard],
     component: EntryComponent,
     children: [
       {
@@ -18,7 +19,16 @@ export const routes: Routes = [
       },
       {
         path: 'employees',
-        loadComponent: () => import('./employees/employees.component').then(m => m.EmployeesComponent),
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./employees/employees.component').then(m => m.EmployeesComponent),
+          },
+          {
+            path: ':id',
+            loadComponent: () => import('./employees/ui/employee-details/employee-details.component').then(m => m.EmployeeDetailsComponent),
+          }
+        ]
       },
     ],
   },
