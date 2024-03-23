@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../../../shared/data-access/auth.service';
 
 @Component({
@@ -14,6 +15,12 @@ import { AuthService } from '../../../shared/data-access/auth.service';
 export class NavbarComponent {
   private router = inject(Router);
   private authService = inject(AuthService);
+  private cookieService = inject(CookieService);
+
+  public user = '';
+  constructor() {
+    this.user = this.cookieService.get('name');
+  }
 
   logout(): void {
     this.authService.logout();

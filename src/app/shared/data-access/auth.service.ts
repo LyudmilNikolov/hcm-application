@@ -26,6 +26,10 @@ export class AuthService {
     return this.cookieService.check('name');
   }
 
+  getCurrentUserId(): string {
+    return this.cookieService.get('_id');
+  }
+
   login(credentials: Credentials): Observable<{ success: boolean; message: string }> {
     const employeesDataUrl = 'assets/data/employees.json';
 
