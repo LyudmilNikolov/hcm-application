@@ -1,27 +1,72 @@
-# UkgFrontEndAssignment2024HcmLyudmilNikolov
+# Human Capital Management App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
+This is a Human Capital Management (HCM) application that helps manage employee information and operations. Follow the steps below to set up and run the application.
 
-## Development server
+## Prerequisites
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Before running the project, ensure you have the following installed:
 
-## Code scaffolding
+- [Node.js 18.17.1](https://nodejs.org/)
+- [Angular CLI 17](https://cli.angular.io/)
+- [JSON Server](https://www.npmjs.com/package/json-server) (for running a local database)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installation
 
-## Build
+Follow these steps to set up the application environment:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. **Clone the repository:**
 
-## Running unit tests
+```bash
+git clone https://github.com/LyudmilNikolov/ukg_front_end_assignment_2024_hcm_lyudmil_nikolov.git
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2. **Navigate to the project directory:**
 
-## Running end-to-end tests
+```bash
+cd ukg_front_end_assignment_2024_hcm_lyudmil_nikolov
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+3. **Install the dependencies:**
 
-## Further help
+```bash
+npm install
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+4. **Start the Angular Development Server:**
+
+```bash
+ng serve
+```
+
+## Setting up the Backend
+
+The application uses JSON Server to mock a backend that provides a REST API interface.
+
+1. **Install JSON Server globally:**
+
+```bash
+npm install -g json-server
+```
+
+2. **Start JSON Server with the provided dataset:**
+
+```bash
+json-server --watch src/assets/data/db.json
+```
+
+JSON Server will run on http://localhost:3000 by default. The application's API calls will be directed to this serve
+
+## Logging In
+
+To log in to the HCM application, use an email from the provided dataset in `db.json`. There are different user roles with different levels of access:
+
+- **HR Super User:**
+
+  - Email: `trinaconrad@ezent.com`
+  - Password: Any non-empty value (e.g., `password`)
+
+- **Normal User:**
+  - Email: `cooperdodson@mobildata.com`
+  - Password: Any non-empty value (e.g., `password`)
+
+Please note that there is no registration feature, and you must log in using the pre-defined users in the database.
