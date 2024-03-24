@@ -1,11 +1,11 @@
 <mat-card>
   <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
-    <mat-card-actions>
+    <mat-card-actions class="button-container">
       <button mat-raised-button color="primary" type="submit" [disabled]="employeeForm.invalid || mode === 'view'">Save</button>
       <button mat-raised-button color="accent" type="button" (click)="employeeForm.reset()">Reset</button>
       <button mat-raised-button color="warn" type="button" (click)="goBack()">Cancel</button>
     </mat-card-actions>
-    <mat-card-content>
+    <mat-card-content class="form-container">
       <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
         <input matInput formControlName="name">

@@ -10,7 +10,6 @@ import { Employee } from '../../interfaces/employee';
   standalone: true,
   imports: [MatTableModule, MatCheckboxModule],
   templateUrl: './employee-table.component.html',
-  styleUrls: ['./employee-table.component.scss']
 })
 export class EmployeeTableComponent {
   @Input({ required: true }) employees: Employee[] = [];

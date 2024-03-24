@@ -21,7 +21,6 @@ import { EmployeeOperationService } from './data-access/employee-operation.servi
   standalone: true,
   imports: [MatButtonModule, MatTableModule, MatCheckboxModule, EmployeeTableComponent, MatIconModule],
   templateUrl: './employees.component.html',
-  styleUrls: ['./employees.component.scss']
 })
 export class EmployeesComponent implements OnInit {
   displayedColumns: EmployeeTableColumn[] = [
