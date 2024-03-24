@@ -5,7 +5,7 @@ import { AuthGuard } from './shared/guards/auth.guard';
 export const routes: Routes = [
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.routes').then((m) => m.AUTH_ROUTES),
+    loadChildren: () => import('./auth/auth.routes').then(authModule => authModule.AUTH_ROUTES),
   },
   {
     path: '',
@@ -15,11 +15,11 @@ export const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadComponent: () => import('./home/home.component').then(m => m.HomeComponent),
+        loadComponent: () => import('./home/home.component').then(homeModule => homeModule.HomeComponent),
       },
       {
         path: 'employees',
-        loadChildren: () => import('./employees/employees.routes').then(m => m.EMPLOYEES_ROUTES),
+        loadChildren: () => import('./employees/employees.routes').then(employeesModule => employeesModule.EMPLOYEES_ROUTES),
       },
     ],
   },

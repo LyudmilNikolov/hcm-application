@@ -3,6 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { ROUTE_PATHS } from '../../../shared/constants/route-paths.constants';
 import { AuthService } from '../../../shared/data-access/auth.service';
 
 @Component({
@@ -10,20 +11,19 @@ import { AuthService } from '../../../shared/data-access/auth.service';
   standalone: true,
   imports: [MatToolbarModule, MatIconModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+  styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
   private router = inject(Router);
   private authService = inject(AuthService);
   private cookieService = inject(CookieService);
 
-  public user = '';
-  constructor() {
-    this.user = this.cookieService.get('name');
-  }
+  public user = this.cookieService.get('name');
+  
+  constructor() {}
 
   logout(): void {
     this.authService.logout();
-    this.router.navigate(['/auth']);
+    this.router.navigate([ROUTE_PATHS.LOGIN]);
   }
 }

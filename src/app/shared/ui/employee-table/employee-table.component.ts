@@ -2,6 +2,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, Input } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
+import { EmployeeTableColumn } from '../../constants/employee-table-columns.constants';
 import { Employee } from '../../interfaces/employee';
 
 @Component({
@@ -14,7 +15,7 @@ import { Employee } from '../../interfaces/employee';
 export class EmployeeTableComponent {
   @Input({ required: true }) employees: Employee[] = [];
   @Input({ required: true }) selection!: SelectionModel<Employee>;
-  @Input({ required: true }) displayedColumns: string[] = [];
+  @Input({ required: true }) displayedColumns: EmployeeTableColumn[] = [];
 
   constructor() {}
 

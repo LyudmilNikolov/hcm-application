@@ -28,13 +28,13 @@
       <mat-error>Password is required.</mat-error>
     }
   </mat-form-field>
-  @if (loginStatus === 'error'){
+  @if (loginStatus === LoginStatus.ERROR) {
     <mat-error>Could not log you in with those details.</mat-error>
-  } @if(loginStatus === 'authenticating'){
+  } @if(loginStatus === LoginStatus.AUTHENTICATING) {
     <mat-spinner diameter="50"></mat-spinner>
   }
 
-  <button mat-raised-button color="accent" type="submit" [disabled]="loginStatus === 'authenticating'">
+  <button mat-raised-button color="accent" type="submit" [disabled]="loginStatus === LoginStatus.AUTHENTICATING">
     Login
   </button>
 </form>

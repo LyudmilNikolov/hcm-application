@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { ROUTE_PATHS } from '../constants/route-paths.constants';
 import { AuthService } from '../data-access/auth.service';
 
 @Injectable({
@@ -13,7 +14,7 @@ class PermissionsService {
     if (this.authService.isLoggedIn()) {
       return true;
     } else {
-      this.router.navigate(['/auth/login']);
+      this.router.navigate([ROUTE_PATHS.LOGIN]);
       return false;
     }
   }

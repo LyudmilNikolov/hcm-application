@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoginStatus } from '../../../shared/enums/login-status.enum';
 import { Credentials } from '../../../shared/interfaces/credentials';
 
 @Component({
@@ -22,9 +23,10 @@ import { Credentials } from '../../../shared/interfaces/credentials';
   styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent {
-  @Input() loginStatus: 'idle' | 'authenticating' | 'error' = 'idle';
+  @Input() loginStatus: LoginStatus = LoginStatus.IDLE;
   @Output() login = new EventEmitter<Credentials>();
 
+  public LoginStatus = LoginStatus;
   private fb = inject(FormBuilder);
 
   loginForm = this.fb.nonNullable.group({
@@ -32,11 +34,9 @@ export class LoginFormComponent {
     password: ['', Validators.required],
   });
 
-  submitForm(): void {
+  submitForm(): void {    
     if (this.loginForm.valid) {
-      const email = this.loginForm.get('email')!.value;
-      const password = this.loginForm.get('password')!.value;
-      this.login.emit({ email, password });
+      this.login.emit(this.loginForm.getRawValue());
     }
   }
 }

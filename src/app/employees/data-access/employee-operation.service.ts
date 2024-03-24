@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
+import { EmployeeOperation } from '../../shared/enums/employee-operation.enum';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeOperationService {
-  private _mode: 'add' | 'edit' | 'view' = 'view';
+  private _mode: EmployeeOperation = EmployeeOperation.VIEW;
 
-  set mode(mode: 'add' | 'edit' | 'view') {
+  set mode(mode: EmployeeOperation) {
     this._mode = mode;
   }
 
-  get mode(): 'add' | 'edit' | 'view' {
+  get mode(): EmployeeOperation {
     return this._mode;
   }
 }

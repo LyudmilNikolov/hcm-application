@@ -7,6 +7,5 @@ import { SidebarComponent } from './ui/sidebar/sidebar.component';
   standalone: true,
   imports: [NavbarComponent, SidebarComponent],
   templateUrl: './entry.component.html',
-  styleUrl: './entry.component.scss'
 })
 export class EntryComponent {}

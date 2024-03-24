@@ -20,7 +20,6 @@ export class EmployeeService {
     return this.http.get<Employee>(`${this.employeesDataUrl}/${id}`);
   }
 
-
   addNewEmployee(employee: NewEmployee): Observable<Employee> {
     return this.http.post<Employee>(this.employeesDataUrl, employee);
   }

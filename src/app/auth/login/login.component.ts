@@ -1,7 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router, RouterModule } from '@angular/router';
+import { ROUTE_PATHS } from '../../shared/constants/route-paths.constants';
 import { AuthService } from '../../shared/data-access/auth.service';
+import { LoginStatus } from '../../shared/enums/login-status.enum';
 import { Credentials } from '../../shared/interfaces/credentials';
 import { LoginFormComponent } from './ui/login-form.component';
 
@@ -10,27 +12,22 @@ import { LoginFormComponent } from './ui/login-form.component';
   standalone: true,
   imports: [RouterModule, LoginFormComponent, MatProgressSpinnerModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   public authService = inject(AuthService);
   private router = inject(Router);
 
-  public loginStatus: 'idle' | 'authenticating' | 'error' = 'idle';
+  public loginStatus: LoginStatus = LoginStatus.IDLE;
 
-  constructor() {
-    // if (this.authService.isLoggedIn()) {
-    //   this.router.navigate(['home']);
-    // }
-  }
+  constructor() {}
 
   handleLogin(credentials: Credentials) {
-    this.loginStatus = 'authenticating';
+    this.loginStatus = LoginStatus.AUTHENTICATING;
     this.authService.login(credentials).subscribe(response => {
       if (response.success) {
-        this.router.navigate(['home']);
+        this.router.navigate([ROUTE_PATHS.HOME]);
       } else {
-        this.loginStatus = 'error';
+        this.loginStatus = LoginStatus.ERROR;
       }
     });
   }

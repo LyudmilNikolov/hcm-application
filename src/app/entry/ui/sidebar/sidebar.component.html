@@ -1,8 +1,8 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #sidenav mode="side" opened>
     <mat-nav-list>
-      <a mat-list-item routerLink="/home">Home</a>
-      <a mat-list-item routerLink="/employees">Employees</a>
+      <a mat-list-item [routerLink]="routePaths.HOME">Home</a>
+      <a mat-list-item [routerLink]="routePaths.EMPLOYEES">Employees</a>
     </mat-nav-list>
   </mat-sidenav>
 

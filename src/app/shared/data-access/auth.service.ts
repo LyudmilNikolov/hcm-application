@@ -26,13 +26,11 @@ export class AuthService {
 
     return this.http.get<Employee[]>(employeesDataUrl).pipe(
       map((employees) => {
-        const user = employees.find(emp => emp.email === credentials.email);
+        const user = employees.find(employee => employee.email === credentials.email);
         if (user) {
           this.cookieService.set('name', user.name);
           this.cookieService.set('id', user.id);
           this.cookieService.set('is_super_user', String(user.is_super_user));
-          this.cookieService.set('department', user.department);
-          this.cookieService.set('position', user.position);
           return { success: true, message: 'Login successful' };
         }
         return { success: false, message: 'User not found' };
