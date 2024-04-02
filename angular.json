@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ukg_front_end_assignment_2024_hcm_lyudmil_nikolov": {
+    "hcm-application": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/ukg_front_end_assignment_2024_hcm_lyudmil_nikolov",
+            "outputPath": "dist/hcm-application",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -63,10 +63,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ukg_front_end_assignment_2024_hcm_lyudmil_nikolov:build:production"
+              "buildTarget": "hcm-application:build:production"
             },
             "development": {
-              "buildTarget": "ukg_front_end_assignment_2024_hcm_lyudmil_nikolov:build:development"
+              "buildTarget": "hcm-application:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -74,7 +74,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "ukg_front_end_assignment_2024_hcm_lyudmil_nikolov:build"
+            "buildTarget": "hcm-application:build"
           }
         },
         "test": {

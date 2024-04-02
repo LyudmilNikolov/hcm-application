@@ -17,13 +17,13 @@ Follow these steps to set up the application environment:
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/LyudmilNikolov/ukg_front_end_assignment_2024_hcm_lyudmil_nikolov.git
+git clone https://github.com/LyudmilNikolov/hcm-application.git
 ```
 
 2. **Navigate to the project directory:**
 
 ```bash
-cd ukg_front_end_assignment_2024_hcm_lyudmil_nikolov
+cd hcm-application
 ```
 
 3. **Install the dependencies:**
